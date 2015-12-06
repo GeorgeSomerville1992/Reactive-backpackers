@@ -1,15 +1,7 @@
 'use strict'
-//TODO, move firebase logic to a store
-
-/* include logic to create actions which talk to stores 
- * this will replace the components directly.
- * add mixin which will bind everything to firebase  
-*/
-
 var React = require('react');
 var Reflux  = require('reflux');
 var Actions = require('../actions');
-var HostelStore = require('../stores/hostel-store');
 var Firebase = require('firebase')
 var ReactFire = require('reactfire');
 

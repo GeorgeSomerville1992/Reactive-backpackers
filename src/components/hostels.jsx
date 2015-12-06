@@ -2,8 +2,6 @@ var React = require('react');
 var Reflux  = require('reflux');
 var Actions = require('../actions');
 var HostelStore = require('../stores/hostel-store');
-var Firebase = require('firebase')
-var ReactFire = require('reactfire');
 
 
 module.exports = React.createClass({
