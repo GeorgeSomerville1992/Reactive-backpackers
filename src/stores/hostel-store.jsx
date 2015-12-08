@@ -19,8 +19,11 @@ module.exports = Reflux.createStore({
     data.arrivalDate = new Date(data.arrivalDate);
     data.departureDate = new Date(data.departureDate);
     var that = this;
-    Geocode.geocodeLocation(data).then(function(data){
-      return Expedia.getHostelList(data).then(function(json) { 
+    Geocode.geocodeLocation(data).then(function(geocodedData){
+      return Expedia.getHostelList(geocodedData).then(function(json) { 
+        // set shit her !!!!
+        console.log('the final hostels!!!!!--->', json);
+        that.requestParams = geocodedData;
         that.hostels = json;
         that.triggerChange();
       }.bind(that));
@@ -34,7 +37,9 @@ module.exports = Reflux.createStore({
     // foursquare api post
   },
   triggerChange: function() {
-    this.trigger('change', this.hostels.HotelListResponse.HotelList);
+    //pass request params in here@
+    console.log('the state', this);
+    this.trigger('change', this);
   },
   getLocations: function() {
     this.bindAsArray(new Firebase("https://reactivebackpackers.firebaseio.com/locations/"), "locations");

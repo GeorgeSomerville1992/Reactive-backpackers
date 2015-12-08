@@ -1,3 +1,5 @@
+'use strict'
+
 var Fetch = require('whatwg-fetch');
 var querystring = require('querystring');
 var parser = require('jstoxml');
@@ -43,7 +45,11 @@ module.exports = window.api = {
       }
     })
     .then(function(response){
-      return response.json();
+        // send an array back?
+      let payload = response.json();
+      payload.location = location;
+      console.log('PAY LOAD MAN', payload);
+      return payload;
     })
   }
 }

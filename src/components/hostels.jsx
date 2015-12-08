@@ -2,42 +2,32 @@ var React = require('react');
 var Reflux  = require('reflux');
 var Actions = require('../actions');
 var HostelStore = require('../stores/hostel-store');
-var ReactGoogleMaps = require("react-google-maps");
+
 
 module.exports = React.createClass({
   mixins: [
     Reflux.listenTo(HostelStore, 'onChange')
   ],
 
-  render: function(){
-    console.log('firing hostels');
-    // clear errors here
-    return <section style={{height: "100%"}}>
-        <GoogleMap containerProps={{
-            style: {
-              height: "100%",
-            },
-          }}
-          defaultZoom={3}
-          defaultCenter={{lat: -25.363882, lng: 131.044922}}
-          onClick={props.onMapClick}
-        >
-          // {props.markers.map((marker, index) => {
-          //   return (
-          //     <Marker
-          //       {...marker}
-          //       onRightclick={() => props.onMarkerRightclick(index)} />
-          //   );
-          // })}
-        </GoogleMap>
-      </section>
+  render: function() {
+    // use normal google maps here
+    return(<div id="map" style={{height:'300px', width:'300px'}}>
 
-
-    <div>
-      <h1> found Hostels </h1>    
-    </div>
+     </div>)
   },
+  componentDidMount: function() {
+    // boom this actually worked
+    this.renderMap();
+  },
+  renderMap: function(newLocation) {
+    console.log('firing render map! again!', newLocation);
 
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: newLocation ? newLocation.latitude : -34.397, lng: newLocation ? newLocation.longitude :  150.644},
+      zoom: 8
+    });
+    console.log('map!', map)
+  },
   getInitialState: function() {
     return {
       hostels: []
@@ -48,9 +38,14 @@ module.exports = React.createClass({
     //react google maps takes place here
     
   },
-  onChange: function(event, hostels) {
-    console.log('triggered change from new hostel component', hostels);
-    this.setState({hostels: hostels})
+  onChange: function(event, hostelObject) {
+    console.log('triggered change from new hostel component', hostelObject);
+    this.setState({hostels: hostelObject.hostels.HotelListResponse, requestParams: hostelObject.requestParams.HotelListRequest})
+    this.renderMap(hostelObject.requestParams.HotelListRequest);
+    // dould even just make a new one
+    // now we can set state and change the map around adn shit here.
+    // do the move on AJAX thing!!!
+
     console.log(this);
   }
 });
