@@ -26,7 +26,7 @@ module.exports = React.createClass({
     console.log(newLocation, this.state);
     map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: newLocation ? newLocation.latitude : -34.397, lng: newLocation ? newLocation.longitude :  150.644},
-      zoom: 8
+      zoom: 10
     });
     // function to call render marker...
     if (this.state.hostels.HotelList) {
@@ -44,8 +44,8 @@ module.exports = React.createClass({
 
         newLocation.longitude = map.center.lng();
         newLocation.latitude = map.center.lat();
-        
-        HostelStore.getExpediaData(newLocation);
+        console.log('new location man-->', newLocation);
+        HostelStore.getExpediaData(newLocation, true);
         // do another request here.
       }, 3000);
     });

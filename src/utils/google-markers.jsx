@@ -22,6 +22,8 @@ module.exports = {
         infowindow.setContent(contentString);
         infowindow.open(map,this);
     })
+
+    
   },
   setInfoWindowContent: function (hostel) {
     var contentString = '<div id="markerinfowindow">' + '<h3>' + hostel.name + '</h3>' +
