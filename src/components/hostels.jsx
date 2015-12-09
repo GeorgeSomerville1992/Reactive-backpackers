@@ -11,31 +11,51 @@ module.exports = React.createClass({
 
   render: function() {
     // use normal google maps here
-    return(<div id="map" style={{height:'300px', width:'300px'}}>
+    return <div className="col-md-6">
 
-     </div>)
+        <div id="map" style={{height:'400px', width:'100%'}}>
+
+        </div>
+      </div>
   },
   componentDidMount: function() {
     // boom this actually worked
     this.renderMap();
   },
   renderMap: function(newLocation) {
-    console.log('firing render map! again!', newLocation);
-
+    console.log(newLocation, this.state);
     map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: newLocation ? newLocation.latitude : -34.397, lng: newLocation ? newLocation.longitude :  150.644},
       zoom: 8
     });
     // function to call render marker...
-    console.log('map!', map)
-    this.createMarkers(map);
+    if (this.state.hostels.HotelList) {
+      this.createMarkers(map);
+    }
+    map.addListener('dragend', function() {
+      // 3 seconds after the center of the map has changed, pan back to the
+      // marker.
+      // but I need the new corrds...
+
+      window.setTimeout(function() {
+        // and pass in something extra to ignore geocode...
+        console.log('chaning map--->');
+        console.log('map change!', map.center.lat(), map.center.lng());
+
+        newLocation.longitude = map.center.lng();
+        newLocation.latitude = map.center.lat();
+        
+        HostelStore.getExpediaData(newLocation);
+        // do another request here.
+      }, 3000);
+    });
+
   },
   createMarkers: function(map) {
     var HostelList = this.state.hostels.HotelList.HotelSummary;
 
     for(var i = 0; i < HostelList.length; i += 1 ) {
       // call utils function
-      console.log('firiing!');
       GoogleMarkers.appendHostelMarkerToMap(HostelList[i], map);
     }
   },
@@ -55,7 +75,5 @@ module.exports = React.createClass({
     // dould even just make a new one
     // now we can set state and change the map around adn shit here.
     // do the move on AJAX thing!!!
-
-    console.log('the current state!', this);
   }
 });

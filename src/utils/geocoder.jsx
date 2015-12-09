@@ -26,7 +26,8 @@ module.exports = window.api = {
                 "countryCode": "GB",
                 "arrivalDate": formattedArrivalDate,
                 "departureDate": formattedDepatureDate,
-                "numberOfResults": 75
+                "numberOfResults": 30,
+                "includeDetails": true
               } // now working 
             }
             console.log('params--->',parameters,status );

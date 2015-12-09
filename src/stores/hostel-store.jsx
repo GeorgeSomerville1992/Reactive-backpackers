@@ -22,7 +22,6 @@ module.exports = Reflux.createStore({
     Geocode.geocodeLocation(data).then(function(geocodedData){
       return Expedia.getHostelList(geocodedData).then(function(json) { 
         // set shit her !!!!
-        console.log('the final hostels!!!!!--->', json);
         that.requestParams = geocodedData;
         that.hostels = json;
         that.triggerChange();
