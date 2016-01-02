@@ -11,7 +11,8 @@ var server = require('gulp-server-livereload');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 var watch = require('gulp-watch');
-
+var imagemin = require('gulp-imagemin');
+var pngquant = require('imagemin-pngquant');
 
 
 var notify = function(error) {
@@ -64,6 +65,13 @@ gulp.task('live-server', function() {
   server.start();
 });
 
+gulp.task('image-min', function () {
+  return gulp.src('./src/assets/*').pipe(imagemin({
+    progressive: true,
+    svgoPlugins: [{ removeViewBox: false }]
+  })).pipe(gulp.dest('.tmp/images'));
+});
+
 gulp.task('bundle-project', function(done) {
 
     return browserify({
@@ -105,7 +113,7 @@ gulp.task('sass', function () {
     .pipe(gulp.dest('./.tmp'));
 });
 
-gulp.task('default', ['build', 'serve', 'sass', 'watch']);
+gulp.task('default', ['build', 'serve', 'sass', 'image-min', 'watch']);
 
 gulp.task('watch', function () {
   gulp.watch('./sass/**/*.scss', ['sass']);

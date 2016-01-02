@@ -35,8 +35,9 @@ module.exports = Reflux.createStore({
       Geocode.geocodeLocation(location).then(function(geocodedData) {
 
         var requestParameters = that.handleRequestHash(location, geocodedData);
-
+        console.log('g0ot my request params', requestParameters);
         return Expedia.getHostelList(requestParameters).then(function(json) { 
+          console.log('the payload cpming back', json);
           that.requestParams = requestParameters;
           that.hostels = json;
           that.triggerChange();

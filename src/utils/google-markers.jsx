@@ -1,7 +1,7 @@
-var hotelRed = new google.maps.MarkerImage('./src/assets/hotel_0star_red.png'),
-  hotelGreen = new google.maps.MarkerImage('./src/assets/hotel_0star_green.png'),
-  hotelYellow = new google.maps.MarkerImage('./src/assets/hotel_0star_yellow.png'),
-  hotelOrange = new google.maps.MarkerImage('./src/assets/hotel_0star_orange.png'),
+var hotelRed = new google.maps.MarkerImage('./images/hotel_0star_red.png'),
+  hotelGreen = new google.maps.MarkerImage('./images/hotel_0star_green.png'),
+  hotelYellow = new google.maps.MarkerImage('./images/hotel_0star_yellow.png'),
+  hotelOrange = new google.maps.MarkerImage('./images/hotel_0star_orange.png'),
 
   infowindow = new google.maps.InfoWindow();
 module.exports = {

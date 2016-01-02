@@ -49,12 +49,14 @@ module.exports = window.api = {
     //   body: location
     // })
 
-    Helper.post("api/locations", location).then(function(response){
-      let payload = response.json();
+    return Helper.post("api/locations", location).then(function(response){
+      console.log('response!', response);
+      let payload = response
       payload.location = location;
       console.log('PAY LOAD MANNNNNN', payload);
       return payload;
     })
+    // include 
   }
 }
 

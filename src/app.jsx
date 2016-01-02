@@ -13,7 +13,6 @@ console.log('MAIN',  Main)
 //     </Route>
 //   </Router>
 // )
-function render(){
-  React.render(<h1>asjfdklsad</h1>);
-}
-render();
+
+React.render(<Main/>, document.querySelector('.container'));
+
