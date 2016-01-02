@@ -1,4 +1,3 @@
-// super forms??? 
 var React = require('react');
 var Reflux  = require('reflux');
 var Firebase = require('firebase')
@@ -8,7 +7,7 @@ var HostelStore = require('../stores/hostel-store');
 var geocode
 
 module.exports = React.createClass({
-
+  
   // mixins: [
   //   Reflux.listenTo(HostelStore, 'onChange')
   // ],
@@ -33,7 +32,6 @@ module.exports = React.createClass({
   handleChange: function(name, e) {
     var change = {};
     change[name] = e.target.value;
-    console.log('the change', change)
     this.setState(change);
   },
   handleSubmission: function(e) {
@@ -58,10 +56,9 @@ module.exports = React.createClass({
       departureDate: '',
       range: ''
     });
-    console.log('handling---->', this.state);
   },
   render: function() {
-    return (
+    return <div className="col-md-6">
       <form className="form-horizontal">
         <div className="form-group">
           <label className="col-sm-2 control-label" for="exampleInputEmail1">City Name</label>
@@ -106,7 +103,8 @@ module.exports = React.createClass({
           <button className="btn btn-default" type="button" onClick={this.handleSubmission}>Submit</button>
         </div>
       </form>
-    )
+    </div>
+  
   }
 
 })

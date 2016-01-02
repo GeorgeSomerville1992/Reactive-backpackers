@@ -2,40 +2,56 @@ var React = require('react');
 var Reflux  = require('reflux');
 var Actions = require('../actions');
 var HostelStore = require('../stores/hostel-store');
-var ReactGoogleMaps = require("react-google-maps");
+var GoogleMarkers = require('../utils/google-markers')
 
 module.exports = React.createClass({
   mixins: [
     Reflux.listenTo(HostelStore, 'onChange')
   ],
 
-  render: function(){
-    console.log('firing hostels');
-    // clear errors here
-    return <section style={{height: "100%"}}>
-        <GoogleMap containerProps={{
-            style: {
-              height: "100%",
-            },
-          }}
-          defaultZoom={3}
-          defaultCenter={{lat: -25.363882, lng: 131.044922}}
-          onClick={props.onMapClick}
-        >
-          // {props.markers.map((marker, index) => {
-          //   return (
-          //     <Marker
-          //       {...marker}
-          //       onRightclick={() => props.onMarkerRightclick(index)} />
-          //   );
-          // })}
-        </GoogleMap>
-      </section>
+  render: function() {
+    return <div className="col-md-6">
 
+        <div id="map" style={{height:'400px', width:'100%'}}>
 
-    <div>
-      <h1> found Hostels </h1>    
-    </div>
+        </div>
+      </div>
+  },
+
+  componentDidMount: function() {
+    this.renderMap();
+  },
+
+  renderMap: function(newLocation) {
+    console.log(newLocation, this.state);
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: newLocation ? newLocation.latitude : -34.397, lng: newLocation ? newLocation.longitude :  150.644},
+      zoom: 10
+    });
+
+    if (this.state.hostels.HotelList) {
+      this.createMarkers(map);
+    }
+
+    map.addListener('dragend', function() {
+
+      window.setTimeout(function() {
+        console.log('map change!', map.center.lat(), map.center.lng());
+
+        newLocation.longitude = map.center.lng();
+        newLocation.latitude = map.center.lat();
+        HostelStore.getExpediaData(newLocation, true);
+
+      }, 3000);
+    });
+
+  },
+  createMarkers: function(map) {
+    var HostelList = this.state.hostels.HotelList.HotelSummary;
+
+    for(var i = 0; i < HostelList.length; i += 1 ) {
+      GoogleMarkers.appendHostelMarkerToMap(HostelList[i], map);
+    }
   },
 
   getInitialState: function() {
@@ -43,14 +59,13 @@ module.exports = React.createClass({
       hostels: []
     }
   },
+
   renderHostels: function() {
     console.log(this.state.hostels);
-    //react google maps takes place here
-    
   },
-  onChange: function(event, hostels) {
-    console.log('triggered change from new hostel component', hostels);
-    this.setState({hostels: hostels})
-    console.log(this);
+
+  onChange: function(event, hostelObject) {
+    this.setState({hostels: hostelObject.hostels.HotelListResponse, requestParams: hostelObject.requestParams.HotelListRequest})
+    this.renderMap(hostelObject.requestParams.HotelListRequest);
   }
 });

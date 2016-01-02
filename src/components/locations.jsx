@@ -11,9 +11,14 @@ module.exports = React.createClass({
   ],
 
   render: function(){
-    return <div>
-      <h1> saved locations </h1>
-      {this.renderLocations()}      
+    return <div className="col-md-12">
+      <div className="list-group">
+        <a href="#" className="list-group-item active">
+          saved locations
+        </a>
+
+        {this.renderLocations()}      
+      </div>
     </div>
   },
 
@@ -28,16 +33,14 @@ module.exports = React.createClass({
     this.bindAsArray(new Firebase("https://reactivebackpackers.firebaseio.com/locations/"), "locations");
   },
   componentWIllReceiveProps: function(nextProps) {
-    console.log('firing next props', nextProps);
+    
   },
   renderLocations: function() {
     // setTimeout(function(){ alert("Hello"); }, 3000);
-    console.log('firing render locations', this.state);
 
 
     return this.state.locations.map((locationObj) => {
-      // console.log('location!!', locationObj.location.cityName);
-      return <h1> {locationObj.location.cityName} </h1>
+      return <a href="#" className="list-group-item">{locationObj.location.cityName}</a>
     });
   },
   componentWillUnmount: function() {

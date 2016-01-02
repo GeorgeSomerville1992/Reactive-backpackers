@@ -1,3 +1,5 @@
+'use strict'
+
 var Fetch = require('whatwg-fetch');
 var querystring = require('querystring');
 var parser = require('jstoxml');
@@ -8,19 +10,11 @@ var expediaOptions = {
         currencyCode :"GBP"  // optional defaults to USD
       }
 var devBaseUrl = "http://dev.api.ean.com/ean-services/rs/hotel/v3/"
-// var expedia = require('expedia')(expediaOptions, sendAsREST)
 var rootUrl = 'https://api.imgur.com/3/';
 var client_id = '869dbf4c337655a';
 var apiSecret = '8d8e66ef1fe0cf5051b22d1a45fe8a3d00675d75';
-
 var expediaEndpoint = devBaseUrl + 'list' + "?" + querystring.stringify(expediaOptions) + "&"
 
-// var geocodeOptions = {
-//   geocoderProvider: 'google',
-//   httpAdapter: 'http'
-// }
-
-// var geocoder = require('node-geocoder')(geocodeOptions.geocoderProvider, geocodeOptions.httpAdapter);
 var geocoder = new google.maps.Geocoder();
 
 
@@ -31,19 +25,16 @@ var geocoder = new google.maps.Geocoder();
 
 module.exports = window.api = {
   getHostelList: function(location) {
-    // make this into a promise???
-
-
-
-    // put the return into the gecode but?
     return fetch(expediaEndpoint + _normalizeParamaters(location), {
-      // moment i put headers in the whole hting changes... 
       headers: {
         Authorization : 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1NTc0MjQ5NjE5MzExOTdkMjUzOGVlOWUiLCJpYXQiOjE0NDkzMjIzOTMyNTAsImV4cCI6MTQ0OTM0MDM5MzI1MH0.IFay4nSZJh9ZvUFaadTpT95SuaXlV8hYyUFvSMnZWgM'
       }
     })
     .then(function(response){
-      return response.json();
+      let payload = response.json();
+      payload.location = location;
+      console.log('PAY LOAD MAN', payload);
+      return payload;
     })
   }
 }
@@ -54,13 +45,12 @@ function _checkParameters(params){
     if(!params.customerSessionId) throw new Error("Customer ip address must be sent in as customerIpAddress");
     if(!params.customerUserAgent) throw new Error("Customer user agent string address must be sent in as customerUserAgent");
 }
+
 function _normalizeParamaters(parameters, request){
-    console.log('in they go --->', parameters);
     if(typeof parameters !== 'object'){
         throw new Error("Paramaters must be passed in as an object");
     }
 
-    // Extract customer from request object
     var customer = {
         customerSessionId : parameters.customerSessionId,
         customerIpAddress : parameters.customerIpAddress,
