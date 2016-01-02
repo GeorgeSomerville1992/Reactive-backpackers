@@ -1,6 +1,7 @@
 'use strict'
 
 var Fetch = require('whatwg-fetch');
+var Helper = require('./rest-helper.js');
 var querystring = require('querystring');
 var parser = require('jstoxml');
 var expediaOptions = {
@@ -25,15 +26,33 @@ var geocoder = new google.maps.Geocoder();
 
 module.exports = window.api = {
   getHostelList: function(location) {
-    return fetch(expediaEndpoint + _normalizeParamaters(location), {
-      headers: {
-        Authorization : 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1NTc0MjQ5NjE5MzExOTdkMjUzOGVlOWUiLCJpYXQiOjE0NDkzMjIzOTMyNTAsImV4cCI6MTQ0OTM0MDM5MzI1MH0.IFay4nSZJh9ZvUFaadTpT95SuaXlV8hYyUFvSMnZWgM'
-      }
-    })
-    .then(function(response){
+    // change directily to post
+    // return fetch(expediaEndpoint + _normalizeParamaters(location), {
+    //   headers: {
+    //     Authorization : 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1NTc0MjQ5NjE5MzExOTdkMjUzOGVlOWUiLCJpYXQiOjE0NDkzMjIzOTMyNTAsImV4cCI6MTQ0OTM0MDM5MzI1MH0.IFay4nSZJh9ZvUFaadTpT95SuaXlV8hYyUFvSMnZWgM'
+    //   }
+    // })
+// fetch('/users', {
+//   method: 'post',
+//   headers: {
+//     'Accept': 'application/json',
+//     'Content-Type': 'application/json'
+//   },
+//   body: JSON.stringify({
+//     name: 'Hubot',
+//     login: 'hubot',
+//   })
+// })
+    console.log('getting hostel list helper');
+    // fetch('/api/locations', {
+    //   method: 'post',
+    //   body: location
+    // })
+
+    Helper.post("api/locations", location).then(function(response){
       let payload = response.json();
       payload.location = location;
-      console.log('PAY LOAD MAN', payload);
+      console.log('PAY LOAD MANNNNNN', payload);
       return payload;
     })
   }

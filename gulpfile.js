@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var gutil = require('gulp-util');
 var source = require('vinyl-source-stream');
 var browserify = require('browserify');
+var liveServer = require('gulp-live-server');
 var watchify = require('watchify');
 var reactify = require('reactify');
 var notifier = require('node-notifier');
@@ -9,6 +10,8 @@ var server = require('gulp-server-livereload');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 var watch = require('gulp-watch');
+
+
 
 var notify = function(error) {
   var message = 'In: ';
@@ -55,7 +58,12 @@ gulp.task('build', function() {
   bundle()
 });
 
-gulp.task('serve', function(done) {
+gulp.task('live-server', function() {
+  var server = new liveServer('server/app.js');
+  server.start();
+});
+
+gulp.task('bundle-project', function(done) {
   gulp.src('')
     .pipe(server({
       livereload: {
@@ -71,7 +79,9 @@ gulp.task('serve', function(done) {
       },
       open: true
     }));
-});
+})
+
+gulp.task('serve', ['bundle-project', 'live-server']);
 
 gulp.task('sass', function () {
   gulp.src('./sass/**/*.scss')
