@@ -1,4 +1,3 @@
-// super forms??? 
 var React = require('react');
 var Reflux  = require('reflux');
 var Firebase = require('firebase')
@@ -8,7 +7,7 @@ var HostelStore = require('../stores/hostel-store');
 var geocode
 
 module.exports = React.createClass({
-
+  
   // mixins: [
   //   Reflux.listenTo(HostelStore, 'onChange')
   // ],

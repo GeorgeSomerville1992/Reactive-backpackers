@@ -33,13 +33,13 @@ module.exports = React.createClass({
     this.bindAsArray(new Firebase("https://reactivebackpackers.firebaseio.com/locations/"), "locations");
   },
   componentWIllReceiveProps: function(nextProps) {
+    
   },
   renderLocations: function() {
     // setTimeout(function(){ alert("Hello"); }, 3000);
 
 
     return this.state.locations.map((locationObj) => {
-      // console.log('location!!', locationObj.location.cityName);
       return <a href="#" className="list-group-item">{locationObj.location.cityName}</a>
     });
   },

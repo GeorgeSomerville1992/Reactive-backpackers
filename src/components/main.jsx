@@ -8,7 +8,7 @@ var CheapestHostels = require('./cheapest-hostels');
 module.exports = React.createClass({
   render: function(){
     return <div>
-      <h1> welcome to reactive backpackers </h1>
+      <h1> Welcome to reactive backpackers </h1>
 
       <SavedLocations />
       <MainForm/>

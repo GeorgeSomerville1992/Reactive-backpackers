@@ -27,6 +27,5 @@ module.exports = window.api = {
         });
       });
     return promise
-
     }
 }
