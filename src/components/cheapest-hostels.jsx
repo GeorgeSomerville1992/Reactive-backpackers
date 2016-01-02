@@ -1,7 +1,7 @@
 var React = require('react');
 var Reflux  = require('reflux');
-var Actions = require('../actions');
-var HostelStore = require('../stores/hostel-store');
+var Actions = require('../actions.jsx');
+var HostelStore = require('../stores/hostel-store.jsx');
 
 module.exports = React.createClass({
   mixins: [

@@ -5,10 +5,14 @@ var Route = require('react-router').Route
 
 var Main = require('./components/main');
 
-module.exports = (
-  <Router>
-    <Route path="/" component={Main} >
-    </Route>
-  </Router>
-)
+function render(){
+    React.render(<Main/>)
+}
+render();
+// module.exports = (
+//   <Router>
+//     <Route path="/" component={Main} >
+//     </Route>
+//   </Router>
+// )
 

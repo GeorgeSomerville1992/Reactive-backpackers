@@ -1,9 +1,9 @@
 var Reflux  = require('reflux');
 var FireBase = require('firebase')
 var ReactFire = require('reactfire');
-var Actions = require('../actions');
-var Geocode = require('../utils/geocoder');
-var Expedia = require('../utils/expedia-api');
+var Actions = require('../actions.jsx');
+var Geocode = require('../utils/geocoder.jsx');
+var Expedia = require('../utils/expedia-api.jsx');
 
 // so you cant put a mixin through a store??/
 

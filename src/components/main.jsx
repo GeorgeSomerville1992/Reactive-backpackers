@@ -1,10 +1,10 @@
 var React = require('react');
-var MainForm = require('./form')
-var SavedLocations = require('./locations')
-var Hostels = require('./hostels')
-var CheapestHostels = require('./cheapest-hostels');
+var MainForm = require('./form.jsx')
+var SavedLocations = require('./locations.jsx')
+var Hostels = require('./hostels.jsx')
+var CheapestHostels = require('./cheapest-hostels.jsx');
 
-
+console.log('hello from main.jsx');
 module.exports = React.createClass({
   render: function(){
     return <div>

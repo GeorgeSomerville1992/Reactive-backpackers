@@ -13,16 +13,20 @@ var app = new express();
 var server = require('http').createServer(app);
 var locations = require('./api/location');
 
-console.log('locations!', locations);
-// require('./routes')(app);
+require('./api/location.js')(app)
 
-server.listen(6000, function () {
-  console.log('Express server listening on 8000');
-});
+app.get('/',function(req,res){
+  console.log('dum dum dum');
+  res.render('./../index.ejs', {});
+})
+.use(express.static(__dirname + '/../.tmp'))
+.listen(7777, function () {
+  console.log('Express server listening on 777777777');
+})
 
-app.use(express.static(__dirname + '/../main.js'))
 
-app.use('/api/locations', locations)
+
+// app.use('/api/locations', locations)
 
 app.use(parser.json());
 app.use(parser.urlencoded({extended: false}));

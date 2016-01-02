@@ -1,7 +1,7 @@
 'use strict'
 var React = require('react');
 var Reflux  = require('reflux');
-var Actions = require('../actions');
+var Actions = require('../actions.jsx');
 var Firebase = require('firebase')
 var ReactFire = require('reactfire');
 

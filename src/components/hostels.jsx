@@ -1,8 +1,8 @@
 var React = require('react');
 var Reflux  = require('reflux');
-var Actions = require('../actions');
-var HostelStore = require('../stores/hostel-store');
-var GoogleMarkers = require('../utils/google-markers')
+var Actions = require('../actions.jsx');
+var HostelStore = require('../stores/hostel-store.jsx');
+var GoogleMarkers = require('../utils/google-markers.jsx')
 
 module.exports = React.createClass({
   mixins: [

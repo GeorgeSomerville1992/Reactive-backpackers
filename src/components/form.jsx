@@ -2,8 +2,8 @@ var React = require('react');
 var Reflux  = require('reflux');
 var Firebase = require('firebase')
 var ReactFire = require('reactfire');
-var Actions = require('../actions');
-var HostelStore = require('../stores/hostel-store');
+var Actions = require('../actions.jsx');
+var HostelStore = require('../stores/hostel-store.jsx');
 var geocode
 
 module.exports = React.createClass({
